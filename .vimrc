@@ -33,8 +33,6 @@ set secure
 set number
 " Enable syntax highlighting
 syntax on
-" Make tabs as wide as two spaces
-set tabstop=2
 " Highlight searches
 set hlsearch
 " Ignore case of searches
@@ -72,10 +70,23 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
 " Automatic commands
 if has("autocmd")
-	" Enable file type detection
-	filetype on
 	" Treat .json files as .js
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
+
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'w0rp/ale'
+Plugin 'Valloric/YouCompleteMe'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" Make tabs as wide as two spaces
+set tabstop=2
